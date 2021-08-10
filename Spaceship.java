@@ -19,6 +19,9 @@ public class Spaceship {
     private static final int SECONDARY_WEAPON_COMPONENT_WIDTH = 5 * SCALE_MULTIPLY;
     private static final int SECONDARY_WEAPON_COMPONENT_HEIGHT = 8 * SCALE_MULTIPLY;
 
+    // ship
+    private static final int SHIP_X_VELOCITY = 12;
+
 
     SpaceshipComponent[] components = new SpaceshipComponent[COMPONENTS];
 
@@ -44,5 +47,14 @@ public class Spaceship {
     public void render(Graphics g) {
         for(SpaceshipComponent component : components)
             component.render(g);
+    }
+
+    public void move(char direction, int RIGHT_LIMIT) {
+        if(direction == 'l' && components[3].getCenterX() - components[3].getWidth() / 2 > 0)
+            for(SpaceshipComponent c : components)
+                c.move(-SHIP_X_VELOCITY);
+        else if(direction == 'r' && components[4].getCenterX() + components[4].getWidth() / 2 < RIGHT_LIMIT)
+            for(SpaceshipComponent c : components)
+                c.move(SHIP_X_VELOCITY);
     }
 }
