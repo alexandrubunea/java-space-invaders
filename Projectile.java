@@ -4,8 +4,8 @@ public class Projectile {
     // config
     private final int x;
     private int y;
-    private final int centerX;
     private int centerY;
+    private final int centerX;
 
     private final static int Y_VELOCITY = 4;
     private final static int PROJECTILE_RADIUS = 10;
@@ -28,4 +28,9 @@ public class Projectile {
         g.setColor(Color.RED);
         g.fillOval(this.x, this.y, PROJECTILE_RADIUS, PROJECTILE_RADIUS);
     }
+
+    // fetch-values
+    public int getCenterY() { return this.centerY; }
+    public int getCenterX() { return this.centerX; }
+    public int getRadius() { return PROJECTILE_RADIUS; }
 }

@@ -33,8 +33,8 @@ public class SpaceshipComponent {
         g.fillOval(this.centerX - 5/2, this.centerY - 5/2, 5, 5);
     }
 
-    public void move(int velocity) {
-        this.x = this.x + velocity;
+    public void move(int to_x) {
+        this.x = to_x;
         this.centerX = this.x + this.width / 2;
     }
 
