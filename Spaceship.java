@@ -20,7 +20,7 @@ public class Spaceship {
     private static final int SECONDARY_WEAPON_COMPONENT_HEIGHT = 8 * SCALE_MULTIPLY;
 
     // ship
-    private static final int SHIP_X_VELOCITY = 12;
+    private static final int SHIP_X_VELOCITY = 25; // 12
 
 
     SpaceshipComponent[] components = new SpaceshipComponent[COMPONENTS];
@@ -57,4 +57,8 @@ public class Spaceship {
             for(SpaceshipComponent c : components)
                 c.move(SHIP_X_VELOCITY);
     }
+
+    // fetch-values
+    public int getComponentCenterX(int component_id) { return components[component_id].getCenterX(); }
+    public int getComponentCenterY(int component_id) { return components[component_id].getCenterY(); }
 }

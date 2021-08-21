@@ -40,5 +40,6 @@ public class SpaceshipComponent {
 
     // fetch-values
     public int getCenterX() { return this.centerX; }
+    public int getCenterY() { return this.centerY; }
     public int getWidth() { return this.width; }
 }
