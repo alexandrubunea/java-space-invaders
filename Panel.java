@@ -14,6 +14,7 @@ public class Panel extends JPanel implements Runnable {
     private static final int SCREEN_HEIGHT = 600;
     private Thread gameThread;
     private boolean gameOver = false;
+    private boolean gameWon = false;
 
     // spaceship
     Spaceship spaceship;
@@ -106,11 +107,21 @@ public class Panel extends JPanel implements Runnable {
         g.drawString("GAME OVER", SCREEN_WIDTH / 2 - 110, SCREEN_HEIGHT / 2 - 110);
         g.setFont(new Font("Arial", Font.BOLD, 16));
     }
+    public void renderYouWon(Graphics g) {
+        g.setColor(Color.ORANGE);
+        g.setFont(new Font("Arial", Font.BOLD, 40));
+        g.drawString("YOU WON", SCREEN_WIDTH / 2 - 110, SCREEN_HEIGHT / 2 - 110);
+        g.setFont(new Font("Arial", Font.BOLD, 16));
+    }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         render(g);
     }
     private void render(Graphics g) {
+        if(gameWon) {
+            renderYouWon(g);
+            return;
+        }
         if(!gameOver) {
             // random-objects-falling-from-the-sky
             randomObjects.forEach(randomObject -> randomObject.render(g));
@@ -207,6 +218,11 @@ public class Panel extends JPanel implements Runnable {
                     projectile.getCenterY() - projectile.getRadius() / 2 <= enemy.getCenterY()) {
                         toDelete.add(projectile);
                         enemy.damage(10);
+                        if(enemy.getHealth() <= 0) {
+                            gameWon = true;
+                            repaint();
+                            gameThread.stop();
+                        }
 
                         Random random = new Random();
                         int high = enemy.getCenterX() + enemy.getWidth() / 2 - 15;
@@ -251,7 +267,10 @@ public class Panel extends JPanel implements Runnable {
                                 gameThread.stop();
                             }
                         }
-                        else if(o.getType() == 2) weaponsHeatLevel -= 40;
+                        else if(o.getType() == 2) {
+                            if(weaponsHeatLevel - 40 < 0) weaponsHeatLevel = 0;
+                            else weaponsHeatLevel -= 40;
+                        }
                         else if(o.getType() == 3) specialProjectiles += 100;
                     }
                 });
